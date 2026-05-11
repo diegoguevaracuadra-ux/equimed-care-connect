@@ -35,7 +35,7 @@ import {
   getReservas, isAdminAuth, setAdminAuth, updateEstado, type Reserva,
 } from "@/lib/equimed";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
       { title: "Panel administrativo — EQUIMED" },
