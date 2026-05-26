@@ -19,7 +19,10 @@ export interface Reserva {
     marca: string;
     tipoMantenimiento: "Correctivo" | "Preventivo";
     descripcion: string;
+    cantidadEquipos: string;
+    tipoCliente: string;
   };
+
   cita: {
     fecha: string; // YYYY-MM-DD
     horario: string;
