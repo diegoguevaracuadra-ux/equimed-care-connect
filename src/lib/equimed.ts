@@ -154,6 +154,17 @@ export const HORARIOS = [
   "3:00 PM - 5:00 PM",
 ];
 
+export const TIPOS_CLIENTE = [
+  "Consumidor final",
+  "Institución",
+  "Hospital",
+  "Clínica",
+  "Laboratorio",
+];
+
+export const CANTIDADES_EQUIPO = ["1 equipo", "2 equipos", "3 equipos", "4 o más equipos"];
+
+
 export const DEPARTAMENTOS = [
   "Ahuachapán", "Cabañas", "Chalatenango", "Cuscatlán", "La Libertad", "La Paz",
   "La Unión", "Morazán", "San Miguel", "San Salvador", "San Vicente", "Santa Ana",
