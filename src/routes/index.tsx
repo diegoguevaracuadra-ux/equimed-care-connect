@@ -429,6 +429,47 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
                     {errors.marca && <p className="text-xs text-destructive">Requerido</p>}
                   </div>
                 </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label>Cantidad de equipos *</Label>
+                    <Controller
+                      control={control}
+                      name="cantidadEquipos"
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger><SelectValue placeholder="¿Es más de un equipo?" /></SelectTrigger>
+                          <SelectContent>
+                            {CANTIDADES_EQUIPO.map((c) => (
+                              <SelectItem key={c} value={c}>{c}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    {errors.cantidadEquipos && <p className="text-xs text-destructive">Requerido</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Tipo de cliente *</Label>
+                    <Controller
+                      control={control}
+                      name="tipoCliente"
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger><SelectValue placeholder="Selecciona tipo de cliente" /></SelectTrigger>
+                          <SelectContent>
+                            {TIPOS_CLIENTE.map((t) => (
+                              <SelectItem key={t} value={t}>{t}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    {errors.tipoCliente && <p className="text-xs text-destructive">Requerido</p>}
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <Label>Descripción del problema o motivo *</Label>
                   <Textarea
