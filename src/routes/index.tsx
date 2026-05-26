@@ -128,14 +128,12 @@ function Header({ onConsulta }: { onConsulta: () => void }) {
           <Button variant="ghost" size="sm" onClick={onConsulta} className="hidden sm:inline-flex">
             <Search className="mr-2 h-4 w-4" /> Consultar reserva
           </Button>
-          <Button asChild variant="outline" size="sm">
-            <Link to="/admin/login">Acceso admin</Link>
-          </Button>
         </div>
       </div>
     </header>
   );
 }
+
 
 function Footer() {
   return (
