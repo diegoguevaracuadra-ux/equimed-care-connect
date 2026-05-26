@@ -141,10 +141,19 @@ function Footer() {
       <div className="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} EQUIMED · Especialistas en venta y reparación de equipos
         médicos · El Salvador
+        <div className="mt-3">
+          <Link
+            to="/admin/login"
+            className="text-xs text-muted-foreground/60 hover:text-primary"
+          >
+            Login
+          </Link>
+        </div>
       </div>
     </footer>
   );
 }
+
 
 function Home({ onIniciar, onConsulta }: { onIniciar: () => void; onConsulta: () => void }) {
   return (
