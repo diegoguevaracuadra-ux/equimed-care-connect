@@ -101,8 +101,11 @@ export function buildWhatsappMessage(r: Reserva): string {
     `• Categoría: ${categoria}`,
     `• Nombre del equipo: ${r.equipo.nombre}`,
     `• Marca: ${r.equipo.marca}`,
+    `• Cantidad de equipos: ${r.equipo.cantidadEquipos}`,
+    `• Tipo de cliente: ${r.equipo.tipoCliente}`,
     `• Tipo de mantenimiento: ${r.equipo.tipoMantenimiento}`,
     `• Descripción: ${r.equipo.descripcion}`,
+
     "",
     "🗓️ CITA AGENDADA:",
     `• Fecha: ${r.cita.fecha}`,
