@@ -19,7 +19,10 @@ export interface Reserva {
     marca: string;
     tipoMantenimiento: "Correctivo" | "Preventivo";
     descripcion: string;
+    cantidadEquipos: string;
+    tipoCliente: string;
   };
+
   cita: {
     fecha: string; // YYYY-MM-DD
     horario: string;
@@ -70,7 +73,8 @@ export function findReserva(numero: string): Reserva | undefined {
 
 export const WHATSAPP_NUMBER = "50375365983";
 export const EQUIMED_DIRECCION =
-  "Av. Las Magnolias #245, Col. San Benito, San Salvador, El Salvador";
+  "Calle las Flores, #1110, Ciudad Jardín, 9ª Av. Sur y 5ª Calle Pte. #602, San Miguel — Sucursal Casa Matriz";
+
 
 export function buildWhatsappMessage(r: Reserva): string {
   const fechaSolicitud = new Date(r.fechaSolicitud).toLocaleDateString("es-SV", {
@@ -97,8 +101,11 @@ export function buildWhatsappMessage(r: Reserva): string {
     `• Categoría: ${categoria}`,
     `• Nombre del equipo: ${r.equipo.nombre}`,
     `• Marca: ${r.equipo.marca}`,
+    `• Cantidad de equipos: ${r.equipo.cantidadEquipos}`,
+    `• Tipo de cliente: ${r.equipo.tipoCliente}`,
     `• Tipo de mantenimiento: ${r.equipo.tipoMantenimiento}`,
     `• Descripción: ${r.equipo.descripcion}`,
+
     "",
     "🗓️ CITA AGENDADA:",
     `• Fecha: ${r.cita.fecha}`,
@@ -146,6 +153,17 @@ export const HORARIOS = [
   "1:00 PM - 3:00 PM",
   "3:00 PM - 5:00 PM",
 ];
+
+export const TIPOS_CLIENTE = [
+  "Consumidor final",
+  "Institución",
+  "Hospital",
+  "Clínica",
+  "Laboratorio",
+];
+
+export const CANTIDADES_EQUIPO = ["1 equipo", "2 equipos", "3 equipos", "4 o más equipos"];
+
 
 export const DEPARTAMENTOS = [
   "Ahuachapán", "Cabañas", "Chalatenango", "Cuscatlán", "La Libertad", "La Paz",

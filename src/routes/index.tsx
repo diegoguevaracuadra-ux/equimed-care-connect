@@ -40,16 +40,19 @@ import { toast } from "sonner";
 import { EquimedLogo } from "@/components/EquimedLogo";
 import {
   CATEGORIAS,
+  CANTIDADES_EQUIPO,
   DEPARTAMENTOS,
   DUI_REGEX,
   EQUIMED_DIRECCION,
   HORARIOS,
   TEL_REGEX,
+  TIPOS_CLIENTE,
   addReserva,
   buildWhatsappUrl,
   findReserva,
   type Reserva,
 } from "@/lib/equimed";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,6 +75,8 @@ type FormData = {
   nombre: string;
   marca: string;
   descripcion: string;
+  cantidadEquipos: string;
+  tipoCliente: string;
   fecha?: Date;
   horario: string;
   cliente_nombre: string;
@@ -82,6 +87,7 @@ type FormData = {
   municipio: string;
   departamento: string;
 };
+
 
 const PASOS = [
   { n: 1, titulo: "Tipo y equipo", icon: Wrench },
@@ -128,14 +134,12 @@ function Header({ onConsulta }: { onConsulta: () => void }) {
           <Button variant="ghost" size="sm" onClick={onConsulta} className="hidden sm:inline-flex">
             <Search className="mr-2 h-4 w-4" /> Consultar reserva
           </Button>
-          <Button asChild variant="outline" size="sm">
-            <Link to="/admin/login">Acceso admin</Link>
-          </Button>
         </div>
       </div>
     </header>
   );
 }
+
 
 function Footer() {
   return (
@@ -143,10 +147,19 @@ function Footer() {
       <div className="mx-auto max-w-6xl px-4 text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} EQUIMED · Especialistas en venta y reparación de equipos
         médicos · El Salvador
+        <div className="mt-3">
+          <Link
+            to="/admin/login"
+            className="text-xs text-muted-foreground/60 hover:text-primary"
+          >
+            Login
+          </Link>
+        </div>
       </div>
     </footer>
   );
 }
+
 
 function Home({ onIniciar, onConsulta }: { onIniciar: () => void; onConsulta: () => void }) {
   return (
@@ -243,6 +256,8 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
         nombre: "",
         marca: "",
         descripcion: "",
+        cantidadEquipos: "",
+        tipoCliente: "",
         horario: "",
         cliente_nombre: "",
         dui: "",
@@ -261,10 +276,11 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
   const fieldsForStep: (keyof FormData)[][] = [
     [],
     ["tipoMantenimiento", "categoria", ...(categoria === "Otro" ? ["categoriaOtro" as keyof FormData] : [])],
-    ["nombre", "marca", "descripcion"],
+    ["nombre", "marca", "cantidadEquipos", "tipoCliente", "descripcion"],
     ["fecha", "horario"],
     ["cliente_nombre", "dui", "telefono", "correo", "direccion", "municipio", "departamento"],
   ];
+
 
   const next = async () => {
     const ok = await trigger(fieldsForStep[paso]);
@@ -294,7 +310,10 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
         marca: data.marca,
         tipoMantenimiento: data.tipoMantenimiento as "Correctivo" | "Preventivo",
         descripcion: data.descripcion,
+        cantidadEquipos: data.cantidadEquipos,
+        tipoCliente: data.tipoCliente,
       },
+
       cita: {
         fecha: data.fecha ? format(data.fecha, "EEEE d 'de' MMMM, yyyy", { locale: es }) : "",
         horario: data.horario,
@@ -410,6 +429,47 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
                     {errors.marca && <p className="text-xs text-destructive">Requerido</p>}
                   </div>
                 </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label>Cantidad de equipos *</Label>
+                    <Controller
+                      control={control}
+                      name="cantidadEquipos"
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger><SelectValue placeholder="¿Es más de un equipo?" /></SelectTrigger>
+                          <SelectContent>
+                            {CANTIDADES_EQUIPO.map((c) => (
+                              <SelectItem key={c} value={c}>{c}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    {errors.cantidadEquipos && <p className="text-xs text-destructive">Requerido</p>}
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Tipo de cliente *</Label>
+                    <Controller
+                      control={control}
+                      name="tipoCliente"
+                      rules={{ required: true }}
+                      render={({ field }) => (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger><SelectValue placeholder="Selecciona tipo de cliente" /></SelectTrigger>
+                          <SelectContent>
+                            {TIPOS_CLIENTE.map((t) => (
+                              <SelectItem key={t} value={t}>{t}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    {errors.tipoCliente && <p className="text-xs text-destructive">Requerido</p>}
+                  </div>
+                </div>
+
                 <div className="space-y-2">
                   <Label>Descripción del problema o motivo *</Label>
                   <Textarea
@@ -659,6 +719,9 @@ function Resumen({ data }: { data: FormData }) {
         <Row label="Tipo de mantenimiento" value={data.tipoMantenimiento} />
         <Row label="Equipo" value={data.nombre} />
         <Row label="Marca" value={data.marca} />
+        <Row label="Cantidad" value={data.cantidadEquipos} />
+        <Row label="Tipo de cliente" value={data.tipoCliente} />
+
         <Row label="Descripción" value={data.descripcion} />
       </Section>
       <Section title="🗓️ Cita">
