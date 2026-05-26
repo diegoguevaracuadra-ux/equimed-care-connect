@@ -256,6 +256,8 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
         nombre: "",
         marca: "",
         descripcion: "",
+        cantidadEquipos: "",
+        tipoCliente: "",
         horario: "",
         cliente_nombre: "",
         dui: "",
@@ -274,10 +276,11 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
   const fieldsForStep: (keyof FormData)[][] = [
     [],
     ["tipoMantenimiento", "categoria", ...(categoria === "Otro" ? ["categoriaOtro" as keyof FormData] : [])],
-    ["nombre", "marca", "descripcion"],
+    ["nombre", "marca", "cantidadEquipos", "tipoCliente", "descripcion"],
     ["fecha", "horario"],
     ["cliente_nombre", "dui", "telefono", "correo", "direccion", "municipio", "departamento"],
   ];
+
 
   const next = async () => {
     const ok = await trigger(fieldsForStep[paso]);
