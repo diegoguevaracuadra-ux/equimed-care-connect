@@ -73,7 +73,8 @@ export function findReserva(numero: string): Reserva | undefined {
 
 export const WHATSAPP_NUMBER = "50375365983";
 export const EQUIMED_DIRECCION =
-  "Av. Las Magnolias #245, Col. San Benito, San Salvador, El Salvador";
+  "Calle las Flores, #1110, Ciudad Jardín, 9ª Av. Sur y 5ª Calle Pte. #602, San Miguel — Sucursal Casa Matriz";
+
 
 export function buildWhatsappMessage(r: Reserva): string {
   const fechaSolicitud = new Date(r.fechaSolicitud).toLocaleDateString("es-SV", {
