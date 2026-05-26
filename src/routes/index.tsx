@@ -75,6 +75,8 @@ type FormData = {
   nombre: string;
   marca: string;
   descripcion: string;
+  cantidadEquipos: string;
+  tipoCliente: string;
   fecha?: Date;
   horario: string;
   cliente_nombre: string;
@@ -85,6 +87,7 @@ type FormData = {
   municipio: string;
   departamento: string;
 };
+
 
 const PASOS = [
   { n: 1, titulo: "Tipo y equipo", icon: Wrench },
