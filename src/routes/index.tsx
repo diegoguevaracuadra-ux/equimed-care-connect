@@ -719,6 +719,9 @@ function Resumen({ data }: { data: FormData }) {
         <Row label="Tipo de mantenimiento" value={data.tipoMantenimiento} />
         <Row label="Equipo" value={data.nombre} />
         <Row label="Marca" value={data.marca} />
+        <Row label="Cantidad" value={data.cantidadEquipos} />
+        <Row label="Tipo de cliente" value={data.tipoCliente} />
+
         <Row label="Descripción" value={data.descripcion} />
       </Section>
       <Section title="🗓️ Cita">
