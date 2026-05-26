@@ -40,16 +40,19 @@ import { toast } from "sonner";
 import { EquimedLogo } from "@/components/EquimedLogo";
 import {
   CATEGORIAS,
+  CANTIDADES_EQUIPO,
   DEPARTAMENTOS,
   DUI_REGEX,
   EQUIMED_DIRECCION,
   HORARIOS,
   TEL_REGEX,
+  TIPOS_CLIENTE,
   addReserva,
   buildWhatsappUrl,
   findReserva,
   type Reserva,
 } from "@/lib/equimed";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
