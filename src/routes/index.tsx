@@ -310,7 +310,10 @@ function Wizard({ onCancel, onDone }: { onCancel: () => void; onDone: (r: Reserv
         marca: data.marca,
         tipoMantenimiento: data.tipoMantenimiento as "Correctivo" | "Preventivo",
         descripcion: data.descripcion,
+        cantidadEquipos: data.cantidadEquipos,
+        tipoCliente: data.tipoCliente,
       },
+
       cita: {
         fecha: data.fecha ? format(data.fecha, "EEEE d 'de' MMMM, yyyy", { locale: es }) : "",
         horario: data.horario,
